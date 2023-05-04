@@ -34,11 +34,13 @@ Wrestler.prototype.attack = function (opponent) {
       "span"
     ).style.width = `${opponent.health}%`;
   } else {
+    document.querySelector("audio").play();
     opponent.elements.attackBtn.style.display = "none";
     opponent.elements.rehealthBtn.style.display = "none";
     opponent.elements.paragraph.style.display = "block";
   }
 };
+
 Wrestler.prototype.rehealth = function () {
   if (this.health < 100) {
     this.health += 5;
@@ -51,6 +53,15 @@ Wrestler.prototype.rehealth = function () {
   }
 };
 
+Wrestler.prototype.reset = function () {
+  this.health = 100;
+  this.elements.currentHealth.innerHTML = "100";
+  this.elements.attackBtn.style.display = "inline-block";
+  this.elements.rehealthBtn.style.display = "inline-block";
+  this.elements.paragraph.style.display = "none";
+  this.elements.progress.querySelector("span").style.width = `${100}%`;
+};
+
 let Brock = new Wrestler("Brock", 10, 100);
 let Goldberg = new Wrestler("Goldberg", 10, 100);
 console.log(Goldberg);
@@ -60,6 +71,7 @@ Goldberg.elements.attackBtn.addEventListener("click", () => {
   Goldberg.attack(Brock);
   Brock.elements.currentHealth.innerHTML = Brock.health;
 });
+
 Brock.elements.attackBtn.addEventListener("click", () => {
   Brock.attack(Goldberg);
   Goldberg.elements.currentHealth.innerHTML = Goldberg.health;
@@ -69,7 +81,14 @@ Goldberg.elements.rehealthBtn.addEventListener("click", () => {
   Goldberg.rehealth();
   Goldberg.elements.currentHealth.innerHTML = Goldberg.health;
 });
+
 Brock.elements.rehealthBtn.addEventListener("click", () => {
   Brock.rehealth();
   Brock.elements.currentHealth.innerHTML = Brock.health;
+});
+
+document.querySelector(".reset").addEventListener("click", () => {
+  Brock.reset();
+  Goldberg.reset();
+  document.querySelector("audio").pause();
 });
