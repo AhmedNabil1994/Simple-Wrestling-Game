@@ -34,6 +34,7 @@ class UIElements {
 Wrestler.prototype.attack = function (opponent) {
   if (opponent.health > 0) {
     attackSound.play();
+    attackSound.currentTime = 0;
     opponent.health -= this.strength;
     opponent.elements.progress.querySelector(
       "span"
@@ -52,7 +53,7 @@ Wrestler.prototype.attack = function (opponent) {
 
 Wrestler.prototype.rehealth = function () {
   if (this.health < 100) {
-    rehealthSound.play()
+    rehealthSound.play();
     this.health += 5;
     this.elements.progress.querySelector(
       "span"
@@ -102,4 +103,5 @@ document.querySelector(".reset").addEventListener("click", () => {
   Brock.reset();
   Goldberg.reset();
   winSound.pause();
+  winSound.currentTime = 0;
 });
