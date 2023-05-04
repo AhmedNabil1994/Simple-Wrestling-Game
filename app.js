@@ -22,7 +22,8 @@ class UIElements {
     this.attackBtn = document.querySelector(`.${name}-attack`);
     this.rehealthBtn = document.querySelector(`.${name}-rehealth`);
     this.progress = document.querySelector(`.${name}-health`);
-    this.paragraph = document.querySelector(`.${name}-p`);
+    this.loseParagraph = document.querySelector(`.${name}-lost`);
+    this.winParagraph = document.querySelector(`.${name}-won`);
     this.currentHealth = document.querySelector(`.${name}-current-health`);
   }
 }
@@ -37,7 +38,10 @@ Wrestler.prototype.attack = function (opponent) {
     document.querySelector("audio").play();
     opponent.elements.attackBtn.style.display = "none";
     opponent.elements.rehealthBtn.style.display = "none";
-    opponent.elements.paragraph.style.display = "block";
+    opponent.elements.loseParagraph.style.display = "block";
+    this.elements.attackBtn.style.display = "none";
+    this.elements.rehealthBtn.style.display = "none";
+    this.elements.winParagraph.style.display = "block";
   }
 };
 
@@ -58,7 +62,8 @@ Wrestler.prototype.reset = function () {
   this.elements.currentHealth.innerHTML = "100";
   this.elements.attackBtn.style.display = "inline-block";
   this.elements.rehealthBtn.style.display = "inline-block";
-  this.elements.paragraph.style.display = "none";
+  this.elements.loseParagraph.style.display = "none";
+  this.elements.winParagraph.style.display = "none";
   this.elements.progress.querySelector("span").style.width = `${100}%`;
 };
 
