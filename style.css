@@ -32,6 +32,13 @@ body {
   height: 100%;
   background-color: green;
 }
+.person .progress .Brock-current-health,
+.person .progress .Goldberg-current-health {
+  margin-top: 3px;
+  font-size: 18px;
+  color: blue;
+  font-weight: bold;
+}
 .person h2 {
   font-size: 30px;
   margin: 20px 0;

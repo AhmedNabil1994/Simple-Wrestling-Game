@@ -23,6 +23,7 @@ class UIElements {
     this.rehealthBtn = document.querySelector(`.${name}-rehealth`);
     this.progress = document.querySelector(`.${name}-health`);
     this.paragraph = document.querySelector(`.${name}-p`);
+    this.currentHealth = document.querySelector(`.${name}-current-health`);
   }
 }
 
@@ -57,14 +58,18 @@ console.log(Brock);
 
 Goldberg.elements.attackBtn.addEventListener("click", () => {
   Goldberg.attack(Brock);
+  Brock.elements.currentHealth.innerHTML = Brock.health;
 });
 Brock.elements.attackBtn.addEventListener("click", () => {
   Brock.attack(Goldberg);
+  Goldberg.elements.currentHealth.innerHTML = Goldberg.health;
 });
 
 Goldberg.elements.rehealthBtn.addEventListener("click", () => {
   Goldberg.rehealth();
+  Goldberg.elements.currentHealth.innerHTML = Goldberg.health;
 });
 Brock.elements.rehealthBtn.addEventListener("click", () => {
   Brock.rehealth();
+  Brock.elements.currentHealth.innerHTML = Brock.health;
 });
