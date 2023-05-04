@@ -38,18 +38,33 @@ Wrestler.prototype.attack = function (opponent) {
     opponent.elements.paragraph.style.display = "block";
   }
 };
+Wrestler.prototype.rehealth = function () {
+  if (this.health < 100) {
+    this.health += 5;
+    this.elements.progress.querySelector(
+      "span"
+    ).style.width = `${this.health}%`;
+  } else {
+    this.health = 100;
+    this.elements.progress.querySelector("span").style.width = `${100}%`;
+  }
+};
 
-let Brock = new Wrestler("Brock", 20, 100);
-let Goldberg = new Wrestler("Goldberg", 20, 100);
-// console.log(Brock.elements.progress.querySelector("span"));
-// console.log(Goldberg.elements.progress.querySelector("span"));
+let Brock = new Wrestler("Brock", 10, 100);
+let Goldberg = new Wrestler("Goldberg", 10, 100);
 console.log(Goldberg);
 console.log(Brock);
-// console.log("after attack", Goldberg);
 
 Goldberg.elements.attackBtn.addEventListener("click", () => {
   Goldberg.attack(Brock);
 });
 Brock.elements.attackBtn.addEventListener("click", () => {
   Brock.attack(Goldberg);
+});
+
+Goldberg.elements.rehealthBtn.addEventListener("click", () => {
+  Goldberg.rehealth();
+});
+Brock.elements.rehealthBtn.addEventListener("click", () => {
+  Brock.rehealth();
 });
