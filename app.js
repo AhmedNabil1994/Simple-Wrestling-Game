@@ -9,6 +9,9 @@ function scalable() {
 window.addEventListener("resize", scalable);
 window.addEventListener("load", scalable);
 
+const winSound = document.getElementById("win");
+const attackSound = document.getElementById("attack");
+const rehealthSound = document.getElementById("rehealth");
 class Wrestler {
   constructor(name, strength, health) {
     this.name = name;
@@ -30,12 +33,14 @@ class UIElements {
 
 Wrestler.prototype.attack = function (opponent) {
   if (opponent.health > 0) {
+    attackSound.play();
     opponent.health -= this.strength;
     opponent.elements.progress.querySelector(
       "span"
     ).style.width = `${opponent.health}%`;
   } else {
-    document.querySelector("audio").play();
+    opponent.elements.currentHealth.innerHTML = "0";
+    winSound.play();
     opponent.elements.attackBtn.style.display = "none";
     opponent.elements.rehealthBtn.style.display = "none";
     opponent.elements.loseParagraph.style.display = "block";
@@ -47,6 +52,7 @@ Wrestler.prototype.attack = function (opponent) {
 
 Wrestler.prototype.rehealth = function () {
   if (this.health < 100) {
+    rehealthSound.play()
     this.health += 5;
     this.elements.progress.querySelector(
       "span"
@@ -95,5 +101,5 @@ Brock.elements.rehealthBtn.addEventListener("click", () => {
 document.querySelector(".reset").addEventListener("click", () => {
   Brock.reset();
   Goldberg.reset();
-  document.querySelector("audio").pause();
+  winSound.pause();
 });
