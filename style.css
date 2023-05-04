@@ -36,6 +36,12 @@ body {
   font-size: 30px;
   margin: 20px 0;
 }
+.person p {
+  font-size: 20px;
+  color: red;
+  font-weight: bold;
+  display: none;
+}
 .person img {
   display: block;
   width: 250px;
