@@ -32,15 +32,20 @@ class UIElements {
 }
 
 Wrestler.prototype.attack = function (opponent) {
-  if (opponent.health > 0) {
+  if (opponent.health > 0 && opponent.health > this.strength) {
+    opponent.health -= this.strength;
+    opponent.elements.currentHealth.innerHTML = opponent.health;
+    opponent.elements.progress.querySelector(
+      "span"
+    ).style.width = `${opponent.health}%`;
     attackSound.play();
     attackSound.currentTime = 0;
-    opponent.health -= this.strength;
     opponent.elements.progress.querySelector(
       "span"
     ).style.width = `${opponent.health}%`;
   } else {
     opponent.elements.currentHealth.innerHTML = "0";
+    opponent.elements.progress.querySelector("span").style.width = `${0}%`;
     winSound.play();
     opponent.elements.attackBtn.style.display = "none";
     opponent.elements.rehealthBtn.style.display = "none";
@@ -53,8 +58,9 @@ Wrestler.prototype.attack = function (opponent) {
 
 Wrestler.prototype.rehealth = function () {
   if (this.health < 100) {
-    rehealthSound.play();
     this.health += 5;
+    rehealthSound.play();
+    rehealthSound.currentTime = 0;
     this.elements.progress.querySelector(
       "span"
     ).style.width = `${this.health}%`;
@@ -76,17 +82,13 @@ Wrestler.prototype.reset = function () {
 
 let Brock = new Wrestler("Brock", 10, 100);
 let Goldberg = new Wrestler("Goldberg", 10, 100);
-console.log(Goldberg);
-console.log(Brock);
 
 Goldberg.elements.attackBtn.addEventListener("click", () => {
   Goldberg.attack(Brock);
-  Brock.elements.currentHealth.innerHTML = Brock.health;
 });
 
 Brock.elements.attackBtn.addEventListener("click", () => {
   Brock.attack(Goldberg);
-  Goldberg.elements.currentHealth.innerHTML = Goldberg.health;
 });
 
 Goldberg.elements.rehealthBtn.addEventListener("click", () => {
