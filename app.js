@@ -34,6 +34,14 @@ class UIElements {
   }
 }
 
+let loseAlert = function (obj) {
+  if (obj.health > 0 && obj.health <= 10) {
+    obj.elements.progress.style.boxShadow = "1px 3px 10px red";
+  } else {
+    obj.elements.progress.style.boxShadow = "none";
+  }
+};
+
 Wrestler.prototype.attack = function (opponent) {
   if (opponent.health > 0 && opponent.health > this.strength) {
     opponent.health -= this.strength;
@@ -47,6 +55,7 @@ Wrestler.prototype.attack = function (opponent) {
       "span"
     ).style.width = `${opponent.health}%`;
   } else {
+    opponent.health = 0;
     opponent.elements.currentHealth.innerHTML = "0";
     opponent.elements.progress.querySelector("span").style.width = `${0}%`;
     winSound.play();
@@ -57,6 +66,7 @@ Wrestler.prototype.attack = function (opponent) {
     this.elements.rehealthBtn.style.display = "none";
     this.elements.winParagraph.style.display = "block";
   }
+  loseAlert(opponent);
 };
 
 Wrestler.prototype.rehealth = function () {
@@ -71,6 +81,7 @@ Wrestler.prototype.rehealth = function () {
     this.health = 100;
     this.elements.progress.querySelector("span").style.width = `${100}%`;
   }
+  loseAlert(this);
 };
 
 Wrestler.prototype.reset = function () {
@@ -81,11 +92,11 @@ Wrestler.prototype.reset = function () {
   this.elements.loseParagraph.style.display = "none";
   this.elements.winParagraph.style.display = "none";
   this.elements.progress.querySelector("span").style.width = `${100}%`;
+  this.elements.progress.style.boxShadow = "none";
 };
 
 let Brock = new Wrestler("Brock", 10, 100);
 let Goldberg = new Wrestler("Goldberg", 10, 100);
-
 Goldberg.elements.attackBtn.addEventListener("click", () => {
   Goldberg.attack(Brock);
 });
