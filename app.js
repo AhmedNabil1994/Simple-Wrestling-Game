@@ -9,9 +9,12 @@ function scalable() {
 window.addEventListener("resize", scalable);
 window.addEventListener("load", scalable);
 
+// Sounds tags
 const winSound = document.getElementById("win");
 const attackSound = document.getElementById("attack");
 const rehealthSound = document.getElementById("rehealth");
+
+// Create objects
 class Wrestler {
   constructor(name, strength, health) {
     this.name = name;
